@@ -73,7 +73,7 @@ class Compute {
         }
         displayAlertInViewController(message: "Un operateur est déja mis !")
     }
-    func tappedSubstraction() {
+    func substractionTapped() {
         if canAddOperator {
             textView.append(" - ")
         }
@@ -81,7 +81,7 @@ class Compute {
     }
     
     
-    func tappedEqual() {
+    func equalTapped() {
         guard expressionIsCorrect else {
             return displayAlertInViewController(message: "Entrez une expression correcte !")
         }

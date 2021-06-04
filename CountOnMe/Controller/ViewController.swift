@@ -29,29 +29,56 @@ class ViewController: UIViewController {
         
     }
     @IBAction func tappedAdditionButton(_ sender: UIButton) {
+        compute.additionTapped()
+        alertPopUp()
         // Méthode de l'addition
+        // Mettre la fonction pour les alertes
     }
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
+        compute.substractionTapped()
+        alertPopUp()
         // Méthode de la soustraction
+        // Mettre la fonction pour les alertes
     }
     @IBAction func tappedMultiplicationButton(_ sender: UIButton) {
         // Méthode de la miltiplication
+        // Mettre la fonction pour les alertes
     }
     @IBAction func tappedDivisionButton(_ sender: UIButton) {
         // Méthode de la division
+        // Mettre la fonction pour les alertes
     }
     
     @IBAction func tappedEqualButton(_ sender: UIButton) {
+        compute.equalTapped()
+        alertPopUp()
         // Méthode du calcule
+        // Mettre la fonction pour les alertes
     }
     @IBAction func tappedCleanButton(_ sender: UIButton) {
         // Méthode de clear Boutton
+        // Mettre la fonction pour les alertes
+    }
+    
+    func alertPopUp(){
+        let alert = UIAlertController(title: "Zero", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+// J'utilise une extension de viewController qui hérite du protocole ComputeDelegate
+// Ca va me permettre d'avoir les propriété pour afficher mes messages d'alertes et remplacer le message de textView
+extension ViewController : ComputeDelegate {
+    func replaceTextView(_ texte: String) {
+        // Je remplace le texteView de compute par le textView du controller
+        textView.text = compute.textView
+    }
+    
+    func displayAlert(_ message: String) {
+        //
     }
     
     
-//  let alertVC = UIAlertController(title: "Zéro!",
-//  message: "Un operateur est déja mis !", preferredStyle: .alert)
-//  alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//  self.present(alertVC, animated: true, completion: nil)
-
 }
