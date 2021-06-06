@@ -24,8 +24,12 @@ class Compute {
     
     // MARK: - Propriétés
     
+    var result: Int = 0
+    
     var delegate: ComputeDelegate?
+    
     var textView = String()
+    
     var elements: [String] {
         return textView.split(separator: " ").map { "\($0)" }
     }
@@ -33,20 +37,20 @@ class Compute {
     var expressionIsCorrect: Bool {
         return elements.last != "+" && elements.last != "-"
     }
-    //
+    
     var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
-    //
+    
     var canAddOperator: Bool {
         return elements.last != "+" && elements.last != "-"
     }
-    //
+    
     var expressionHaveResult: Bool {
         return textView.firstIndex(of: "=") != nil
     }
     
-    // MARK: - Delegate Methods (pour remplacer les donnée dans la viewController)
+    // MARK: - Protocol Delegate Methods
 
     private func replaceTextViewInController(texte: String){
         delegate?.replaceTextView(texte)
@@ -70,14 +74,37 @@ class Compute {
     func additionTapped() {
         if canAddOperator {
             textView.append(" + ")
+        } else {
+            displayAlertInViewController(message: "Un operateur est déja mis !")
         }
-        displayAlertInViewController(message: "Un operateur est déja mis !")
+        return replaceTextViewInController(texte: "+")
     }
+    
     func substractionTapped() {
         if canAddOperator {
             textView.append(" - ")
+        } else {
+            displayAlertInViewController(message: "Un operateur est déja mis !")
         }
-        displayAlertInViewController(message: "Un operateur est déja mis !")
+        return replaceTextViewInController(texte: "-")
+    }
+    
+    func multiplicationTapped() {
+        if canAddOperator {
+            textView.append(" x ")
+        } else {
+            displayAlertInViewController(message: "Un operateur est déja mis !")
+        }
+        return replaceTextViewInController(texte: "x")
+    }
+    
+    func divisionTapped() {
+        if canAddOperator {
+            textView.append(" ÷ ")
+        } else {
+            displayAlertInViewController(message: "Un operateur est déja mis !")
+        }
+        return replaceTextViewInController(texte: "÷")
     }
     
     
@@ -97,16 +124,25 @@ class Compute {
             let left = Int(operationsToReduce[0])!
             let operand = operationsToReduce[1]
             let right = Int(operationsToReduce[2])!
-            let result: Int
+            
             switch operand {
             case "+": result = left + right
             case "-": result = left - right
-            default: fatalError("Unknown operator !")
+            case "x": result = left * right
+            case "÷": result = left / right
+            default: displayAlertInViewController(message: "Unknown operator !")
+                return
             }
             operationsToReduce = Array(operationsToReduce.dropFirst(3))
             operationsToReduce.insert("\(result)", at: 0)
         }
         textView.append(" = \(operationsToReduce.first!)")
+        replaceTextViewInController(texte: textView)
+    }
+    
+    func cleanTapped() {
+        // Remettre le texteView à 0.00
+        // Commencer un nouveau calcule
     }
     
 }
