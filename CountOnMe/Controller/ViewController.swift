@@ -30,39 +30,39 @@ class ViewController: UIViewController {
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         guard let numberText = sender.title(for: .normal) else {return}
-        compute.numbersTapped(number: numberText)
+        compute.manageNumbers(number: numberText)
     }
     
     @IBAction func tappedAdditionButton(_ sender: UIButton) {
-        compute.additionTapped()
+        compute.manageAddition()
     }
     
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
-        compute.substractionTapped()
+        compute.manageSubtraction()
     }
     
     @IBAction func tappedMultiplicationButton(_ sender: UIButton) {
-        compute.multiplicationTapped()
+        compute.manageMultiplication()
     }
     
     @IBAction func tappedDivisionButton(_ sender: UIButton) {
-        compute.divisionTapped()
+        compute.manageDivision()
     }
     
     @IBAction func tappedEqualButton(_ sender: UIButton) {
-        compute.equalTapped()
+        compute.calculatorResults()
     }
     
     @IBAction func tappedCleanButton(_ sender: UIButton) {
-        compute.cleanTapped()
+        compute.clearAll()
     }
 }
 
 // J'utilise une extension de viewController qui hérite du protocole ComputeDelegate
 // Ca va me permettre de faire le pont et échanger les propriété du model avec ceux de la viewController
 extension ViewController : ComputeDelegate {
-    func replaceTextView(_ texte: String) {
-        textView.text = compute.textView
+    func replaceText(_ texte: String) {
+        textView.text = compute.text
     }
     
     func displayAlert(_ message: String) {
