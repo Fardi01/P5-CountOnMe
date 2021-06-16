@@ -17,7 +17,7 @@ class ComputeTestCase: XCTestCase {
         compute = Compute()
     }
     
-// MARK: - Tests Simple Calcule
+// MARK: - Tests Simple Calcul
     
     // Tests the diplay of numbers
     func testGivenNumbers_WhenAddNumbers_ThenViewDisplayNumbers(){
@@ -36,7 +36,7 @@ class ComputeTestCase: XCTestCase {
     }
     
     // tests the result of addition between two numbers
-    func testGivenAddition_WhenWeCalculateOnePlusTwo_ThenResultIsEqualToThree() { //
+    func testGivenAddition_WhenWeCalculateOnePlusTwo_ThenResultIsEqualToThree() {
         compute.manageNumbers(number: "1")
         compute.manageAddition()
         compute.manageNumbers(number: "2")
@@ -85,7 +85,7 @@ class ComputeTestCase: XCTestCase {
         XCTAssertTrue(compute.result == 3)
     }
     
-    // MARK: - Test Calcule with Two Combinaisons
+    // MARK: - Test Calcule with Two Operators
     
     // Adition + Addition
     func testGivenAddition_WhenCalculateOnePlusTwoPlusThree_ThenResultatIsEqualToSix() {
@@ -268,15 +268,86 @@ class ComputeTestCase: XCTestCase {
         XCTAssertTrue(compute.text == "")
     }
     
-    // teste Divion methode
+    // teste Divion methode (Result is a double)
     func testGivenDivision_WhenDividingTwoPointFiveByTwo_ThenResultIsEqualToOnePointTwentyFive() {
         compute.result = compute.division(left: 2.5, right: 2)
-        
         XCTAssertTrue(compute.result == 1.25)
     }
     
+    // Test rounding at 4 Figures
+    func testGivenDivision_WhenDividingTwoByThree_ThenResultIsRoundingAtZeroAndFourFiguresAfterDot() {
+        compute.manageNumbers(number: "2")
+        compute.manageDivision()
+        compute.manageNumbers(number: "3")
+        compute.calculatorResults()
+        
+        XCTAssert(compute.result == 0.6667)
+    }
     
-    // MARK: - Tests Alerts and Messages
     
+    // MARK: - Tests Alerts Messages
+    
+    // Test if two operators are added successively
+    func testGivenNewAlert_WhenAddingTwoOperatorsSuccessively_ThenDisplayAlertErrorMessage() {
+        compute.manageNumbers(number: "2")
+        compute.manageAddition()
+        compute.manageMultiplication()
+        
+        XCTAssertEqual(compute.result == 0.00, compute.displayErrorMessage(message: "An operator has already been set !") == compute.displayErrorMessage(message: "An operator has already been set !"))
+    }
+    
+    // Test if an operator are added before numbers
+    func testGivenNewAlert_WhenOperatorAddedBeforeNumber_ThenDisplayAlertErrorMessage() {
+        compute.manageAddition()
+        compute.manageNumbers(number: "21")
+        
+        XCTAssertEqual(compute.result == 0.00, compute.displayErrorMessage(message: "Please set a number first") == compute.displayErrorMessage(message: "Please set a number first"))
+    }
+    
+    // Test if an operator is present before the result is calculated
+    func testGivenNewAlert_WhenAnOperatorIsBeforeCalculateResult_ThenDisplayAlertErrorMessage() {
+        compute.manageNumbers(number: "2")
+        compute.manageAddition()
+        compute.manageNumbers(number: "2")
+        compute.manageSubtraction()
+        compute.calculatorResults()
+        
+        XCTAssertEqual(compute.result == 0.00, compute.displayErrorMessage(message: "Please set a correct expression !") == compute.displayErrorMessage(message: "Please set a correct expression !"))
+    }
+    
+    // Test if calculator result is triggered before calculation between two numbers
+    func testGivenNewAlert_WhenEqualIsTappedBeforeCalculation_ThenDisplayAlertErrorMessage() {
+        compute.calculatorResults()
+        
+        XCTAssertEqual(compute.result == 0.00, compute.displayErrorMessage(message: "Please start a new calcul !") == compute.displayErrorMessage(message: "Please start a new calcul !"))
+    }
+    
+    // Test if the ClearAll Button is pressed twice
+    func testGivenNewAlert_WhenClearAllIsTappedTwiceSuccessively_ThenDisplayAlertErrorMessage() {
+        compute.clearAll()
+        compute.clearAll()
+        
+        XCTAssertEqual(compute.result == 0.00, compute.displayErrorMessage(message: "Already remove") == compute.displayErrorMessage(message: "Already remove"))
+    }
+    
+    // Test if dividing by Zero print error in text view
+    func testeGivenNewAlert_WhenDividingAnyNumberByZero_ThenPrintErrorInTextView() {
+        compute.manageNumbers(number: "60")
+        compute.manageDivision()
+        compute.manageNumbers(number: "0")
+        compute.calculatorResults()
+        
+        XCTAssertEqual(compute.result == 0.00, compute.text == "Error")
+    }
+    
+    // Test if dividing any number by Zero Display alert
+    func testeGivenNewAlert_WhenDividingAnyNumberByZero_ThenDisplayAlertErrorMessage() {
+        compute.manageNumbers(number: "10")
+        compute.manageDivision()
+        compute.manageNumbers(number: "0")
+        compute.calculatorResults()
+        
+        XCTAssertEqual(compute.result == 0.00, compute.displayErrorMessage(message: "Try another calcule") == compute.displayErrorMessage(message: "Try another calcule"))
+    }
     
 }

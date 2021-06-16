@@ -23,7 +23,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // la déclaration permet de donner la gestion du protocol au controller.
         compute.delegate = self
     }
     // MARK: - actions
@@ -58,8 +57,6 @@ class ViewController: UIViewController {
     }
 }
 
-// J'utilise une extension de viewController qui hérite du protocole ComputeDelegate
-// Ca va me permettre de faire le pont et échanger les propriété du model avec ceux de la viewController
 extension ViewController : ComputeDelegate {
     func replaceText(_ texte: String) {
         textView.text = compute.text

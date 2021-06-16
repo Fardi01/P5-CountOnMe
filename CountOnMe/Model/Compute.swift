@@ -8,7 +8,8 @@
 
 import Foundation
 
-// MARK: - Crée un protocole pour connumiquer avec ViewController
+// MARK: - Protocol Delegate
+
 protocol ComputeDelegate {
     
     func replaceText(_ texte: String)
@@ -31,7 +32,7 @@ class Compute {
     }
     // Error check computed variables
     var expressionIsCorrect: Bool {
-        return elements.last != "+" && elements.last != "-"
+        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "÷"
     }
     
     var expressionHaveEnoughElement: Bool {
@@ -39,11 +40,15 @@ class Compute {
     }
     
     var canAddOperator: Bool {
-        return elements.last != "+" && elements.last != "-"
+        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "÷"
     }
     
     var expressionHaveResult: Bool {
         return text.firstIndex(of: "=") != nil
+    }
+    
+    var haveOperandFirst: Bool {
+        return elements.count >= 1
     }
     
     // MARK: - Protocol Delegate Methods
@@ -52,13 +57,12 @@ class Compute {
         delegate?.replaceText(texte)
     }
     
-    private func displayErrorMessage(message: String){
+    func displayErrorMessage(message: String){
         delegate?.displayAlert(message)
     }
     
     // MARK: - Compute Methods (Gestion des calcules)
     
-    // Gestion des boutons 0 à 9
     func manageNumbers(number: String){
         if expressionHaveResult {
             text = ""
@@ -68,60 +72,44 @@ class Compute {
     }
     
     func manageAddition() {
-        if expressionHaveResult {
-            text = ""
-        }
-        if canAddOperator {
-            text.append(" + ")
-        } else {
-            displayErrorMessage(message: "Un operateur est déja mis !")
-        }
-        return replaceTextData(texte: "+")
+        addOperator("+")
     }
     
     func manageSubtraction() {
-        if expressionHaveResult {
-            text = ""
-        }
-        if canAddOperator {
-            text.append(" - ")
-        } else {
-            displayErrorMessage(message: "Un operateur est déja mis !")
-        }
-        return replaceTextData(texte: "-")
+        addOperator("-")
     }
     
     func manageMultiplication() {
-        if expressionHaveResult {
-            text = ""
-        }
-        if canAddOperator {
-            text.append(" x ")
-        } else {
-            displayErrorMessage(message: "Un operateur est déja mis !")
-        }
-        return replaceTextData(texte: "x")
+        addOperator("x")
     }
     
     func manageDivision() {
+        addOperator("÷")
+    }
+    
+    private func addOperator(_ Operator: String) {
+        let setOperator = " " + Operator + " "
         if expressionHaveResult {
             text = ""
         }
         if canAddOperator {
-            text.append(" ÷ ")
+            if haveOperandFirst {
+                text += setOperator
+            } else {
+                displayErrorMessage(message: "Please set a number first")
+            }
         } else {
-            displayErrorMessage(message: "Un operateur est déja mis !")
+            displayErrorMessage(message: "An operator has already been set !")
         }
-        return replaceTextData(texte: "÷")
+        return replaceTextData(texte: Operator)
     }
-    
     
     func calculatorResults() {
         guard expressionIsCorrect else {
-            return displayErrorMessage(message: "Entrez une expression correcte !")
+            return displayErrorMessage(message: "Please set a correct expression !")
         }
         guard expressionHaveEnoughElement else {
-            return displayErrorMessage(message: "Démarrez un nouveau calcul !")
+            return displayErrorMessage(message: "Please start a new calcul !")
         }
         
         // Create local copy of operations
@@ -133,7 +121,6 @@ class Compute {
             
             if let index = operationsToReduce.firstIndex(where: {$0 == "x" || $0 == "÷"}) {
                 priority = index - 1
-                
             }
             
             guard let left = Double(operationsToReduce[priority])else { return }
@@ -160,7 +147,7 @@ class Compute {
         replaceTextData(texte: text)
     }
     
-    //Division method
+    //Division method to avoid getting an infinite result and getting results rounded to four figures after point
     func division(left: Double, right: Double) -> Double {
         if right == 0 {
             result = 0.00
@@ -168,6 +155,7 @@ class Compute {
             displayErrorMessage(message: "Try another calcule")
         } else {
             result = left / right
+            result = round(result * 10000) / 10000
         }
         return result
     }

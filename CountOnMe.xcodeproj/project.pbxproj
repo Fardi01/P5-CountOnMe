@@ -100,10 +100,10 @@
 			isa = PBXGroup;
 			children = (
 				1FA43BDE224E569A00F565CB /* Info.plist */,
-				D6080AD32662D4AE00AA211D /* Support files */,
 				D6080AD02662D48500AA211D /* Model */,
 				D6080AD12662D48F00AA211D /* View */,
 				D6080AD22662D49400AA211D /* Controller */,
+				D6080AD32662D4AE00AA211D /* Support files */,
 			);
 			path = CountOnMe;
 			sourceTree = "<group>";
