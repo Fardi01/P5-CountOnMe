@@ -1,0 +1,35 @@
+{
+  "configurations" : [
+    {
+      "id" : "D5B7D20E-BA66-4B94-A162-3D83685A8679",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:CountOnMe.xcodeproj",
+      "identifier" : "1FA43BCE224E569900F565CB",
+      "name" : "CountOnMe"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:CountOnMe.xcodeproj",
+        "identifier" : "D6329BA726667B990043C890",
+        "name" : "CountOnMeTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CountOnMe.xcodeproj",
+        "identifier" : "D6D05532266BAB7F00512390",
+        "name" : "CountOnMeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

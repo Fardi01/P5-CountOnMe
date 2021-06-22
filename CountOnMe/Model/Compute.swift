@@ -30,23 +30,23 @@ class Compute {
     var elements: [String] {
         return text.split(separator: " ").map { "\($0)" }
     }
-    // Error check computed variables
+    // Error Check: While the last entry is not an operator so we can calculate
     var expressionIsCorrect: Bool {
         return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "÷"
     }
-    
+    // Error Check: We Need a Number, an Operator and another Number to do the calculation
     var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
-    
+    // Error Check: While the last entry is not an operator so we can add operator
     var canAddOperator: Bool {
         return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "÷"
     }
-    
+    // Error Check: Already have equal sign ?
     var expressionHaveResult: Bool {
         return text.firstIndex(of: "=") != nil
     }
-    
+    // Error Check : We need to have a number first 
     var haveOperandFirst: Bool {
         return elements.count >= 1
     }
@@ -61,7 +61,7 @@ class Compute {
         delegate?.displayAlert(message)
     }
     
-    // MARK: - Compute Methods (Gestion des calcules)
+    // MARK: - Compute Methods (Manage Calcules)
     
     func manageNumbers(number: String){
         if expressionHaveResult {
@@ -164,8 +164,6 @@ class Compute {
     func clearAll() {
         if text != "" {
             text = ""
-        } else {
-            displayErrorMessage(message: "Already remove")
         }
         return replaceTextData(texte: text)
     }

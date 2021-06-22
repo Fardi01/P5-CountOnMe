@@ -45,6 +45,7 @@
 		D6329BA826667B990043C890 /* CountOnMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6329BAC26667B990043C890 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6329BB226667CB60043C890 /* ComputeTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputeTestCase.swift; sourceTree = "<group>"; };
+		D636446B2680CE4300A3BBB3 /* CountOnMe.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CountOnMe.xctestplan; sourceTree = "<group>"; };
 		D672E9732664E7C0009A8D1F /* Compute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compute.swift; sourceTree = "<group>"; };
 		D6D05533266BAB7F00512390 /* CountOnMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D05535266BAB7F00512390 /* CountOnMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountOnMeUITests.swift; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				D6329BB226667CB60043C890 /* ComputeTestCase.swift */,
+				D636446B2680CE4300A3BBB3 /* CountOnMe.xctestplan */,
 				D6329BAC26667B990043C890 /* Info.plist */,
 			);
 			path = CountOnMeTests;
